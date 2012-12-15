@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.spotlightcoding.components.Gravity;
 import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.components.LeftRightMovement;
+import com.spotlightcoding.components.MoveJumping;
 
 public class World extends BasicGameState{
 	Image worldMap;
@@ -26,14 +27,14 @@ public class World extends BasicGameState{
 	}
 	
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
-			throws SlickException {
+	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		
 		rob = new Entity("Rob");
 		rob.AddComponent(new ImageRenderComponent("robRender",robImg));
-		rob.AddComponent(new Gravity("robGravity", rob.getState()));
+		rob.AddComponent(new Gravity("robGravity"));
+		rob.AddComponent(new MoveJumping("robJumping"));
 		rob.setPosition(new Vector2f(400,300));
 		
 		level = new Entity("level");

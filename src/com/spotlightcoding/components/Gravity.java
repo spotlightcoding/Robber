@@ -12,20 +12,19 @@ public class Gravity extends Component{
 	private int robState;
 	
 	
-	public Gravity(String myId,int st){
+	public Gravity(String myId){
 		this.id = myId;
-		this. robState = st; 
 	}
 	
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
 		Vector2f position = owner.getPosition();
+		this.robState = owner.getState();
 		
 		if(this.robState == Entity.FALLING){
 			position.y += 0.6f * delta;
 		}
-		//  TODO add input for x position
 		
 		//System.out.println(this.robState);
 		

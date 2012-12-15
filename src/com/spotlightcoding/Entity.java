@@ -36,7 +36,6 @@ public class Entity {
         this.id = id;
         this.state = NORMAL;
         components = new ArrayList<Component>();
-        
         position = new Vector2f(0,0);
         scale = 1;
         rotation = 0;
