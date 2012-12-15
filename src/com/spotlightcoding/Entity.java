@@ -9,16 +9,23 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.spotlightcoding.components.ImageRenderComponent;
- 
 
- 
 public class Entity {
- 
+	//------------------------------CONSTANTS
+	public static final int NORMAL = 0;
+	public static final int FALLING = 1;
+	public static final int JUMPING = 2;
+	public static final int DEAD = 3;
+	
+	
+	
+	
     private String id;
  
     private Vector2f position;
     private float scale;
     private float rotation;
+    private int state; 
  
     ImageRenderComponent renderComponent;
  
@@ -27,9 +34,9 @@ public class Entity {
     public Entity(String id)
     {
         this.id = id;
- 
+        this.state = NORMAL;
         components = new ArrayList<Component>();
- 
+        
         position = new Vector2f(0,0);
         scale = 1;
         rotation = 0;
@@ -74,6 +81,13 @@ public class Entity {
     public String getId()
     {
     	return id;
+    }
+    public int getState()
+    {
+    	return state;
+    }
+    public  void setState(int myState){
+    	this.state = myState;
     }
  
     public void setPosition(Vector2f position) {
