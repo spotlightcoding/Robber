@@ -35,37 +35,39 @@ public class Entity {
  
     public void AddComponent(Component component)
     {
-        if(ImageRenderComponent.class.isInstance(component))
-            renderComponent = (ImageRenderComponent)component;
- 
+        if(ImageRenderComponent.class.isInstance(component)){
+        	renderComponent = (ImageRenderComponent)component;
+        }
+            
         component.setOwnerEntity(this);
-	components.add(component);
+        components.add(component);
     }
  
     public Component getComponent(String id)
     {
         for(Component comp : components)
-	{
-	    if ( comp.getId().equalsIgnoreCase(id) )
-	        return comp;
-	}
+		{
+		    if ( comp.getId().equalsIgnoreCase(id) ) {
+		    	return comp;
+		    }
+		}
  
-	return null;
+        return null;
     }
  
     public Vector2f getPosition()
     {
-	return position;
+    	return position;
     }
  
     public float getScale()
     {
-	return scale;
+    	return scale;
     }
  
     public float getRotation()
     {
-	return rotation;
+    	return rotation;
     }
  
     public String getId()
@@ -74,7 +76,7 @@ public class Entity {
     }
  
     public void setPosition(Vector2f position) {
-	this.position = position;
+    	this.position = position;
     }
  
     public void setRotation(float rotate) {
@@ -82,7 +84,7 @@ public class Entity {
     }
  
     public void setScale(float scale) {
-	this.scale = scale;
+    	this.scale = scale;
     }
  
     public void update(GameContainer gc, StateBasedGame sb, int delta)
@@ -95,7 +97,8 @@ public class Entity {
  
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr)
     {
-        if(renderComponent != null)
-            renderComponent.render(gc, sb, gr);
+        if(renderComponent != null) {
+        	renderComponent.render(gc, sb, gr);
+        }
     }
 }
