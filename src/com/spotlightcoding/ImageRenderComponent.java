@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
  
-public class ImageRenderComponent extends RenderComponent {
+public class ImageRenderComponent extends Component {
  
 	Image image;
  
