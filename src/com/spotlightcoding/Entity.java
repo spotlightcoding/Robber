@@ -28,13 +28,14 @@ public class Entity {
     private float scale;
     private float rotation;
     private int state;
+    private String type;
     
  
     ImageRenderComponent renderComponent;
  
     ArrayList<Component> components;
  
-    public Entity(String id)
+    public Entity(String id, String type)
     {
         this.id = id;
         this.state = NORMAL;
