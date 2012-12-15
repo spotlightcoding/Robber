@@ -1,6 +1,8 @@
 package com.spotlightcoding;
  
 import java.util.ArrayList;
+
+import java.awt.Dimension;
  
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,13 +21,14 @@ public class Entity {
 	
 	
 	
-	
     private String id;
- 
+    
+    private Dimension size;
     private Vector2f position;
     private float scale;
     private float rotation;
-    private int state; 
+    private int state;
+    
  
     ImageRenderComponent renderComponent;
  
@@ -45,6 +48,7 @@ public class Entity {
     {
         if(ImageRenderComponent.class.isInstance(component)){
         	renderComponent = (ImageRenderComponent)component;
+        	size.setSize(renderComponent.getImage().getWidth(), renderComponent.getImage().getHeight());
         }
             
         component.setOwnerEntity(this);
@@ -85,6 +89,11 @@ public class Entity {
     {
     	return state;
     }
+    
+    public Dimension getSize() {
+    	return size;
+    }
+    
     public  void setState(int myState){
     	this.state = myState;
     }

@@ -28,6 +28,7 @@ public class World extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+
 		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		
