@@ -7,20 +7,22 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+
+import com.spotlightcoding.components.ImageRenderComponent;
  
 
  
 public class Entity {
  
-    String id;
+    private String id;
  
-    Vector2f position;
-    float scale;
-    float rotation;
+    private Vector2f position;
+    private float scale;
+    private float rotation;
  
-    ImageRenderComponent renderComponent = null;
+    ImageRenderComponent renderComponent;
  
-    ArrayList<Component> components = null;
+    ArrayList<Component> components;
  
     public Entity(String id)
     {
@@ -51,7 +53,6 @@ public class Entity {
 		    	return comp;
 		    }
 		}
- 
         return null;
     }
  

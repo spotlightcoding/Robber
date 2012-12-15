@@ -1,14 +1,16 @@
-package com.spotlightcoding;
+package com.spotlightcoding.components;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+
+import com.spotlightcoding.Component;
  
 public class ImageRenderComponent extends Component {
  
-	Image image;
+	private Image image;
  
 	public ImageRenderComponent(String id, Image image)
 	{
@@ -20,7 +22,6 @@ public class ImageRenderComponent extends Component {
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
 		Vector2f pos = owner.getPosition();
 		float scale = owner.getScale();
- 
 		image.draw(pos.x, pos.y, scale);
 	}
  
