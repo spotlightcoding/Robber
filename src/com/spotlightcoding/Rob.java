@@ -22,7 +22,5 @@ public class Rob extends StateBasedGame{
 		AppGameContainer appgc;
 		
 	}
-
 	
-
 }

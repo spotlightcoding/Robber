@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
  
+
  
 public class Entity {
  
@@ -17,9 +18,9 @@ public class Entity {
     float scale;
     float rotation;
  
-    RenderComponent renderComponent;
+    ImageRenderComponent renderComponent = null;
  
-    ArrayList<Component> components;
+    ArrayList<Component> components = null;
  
     public Entity(String id)
     {
@@ -34,8 +35,8 @@ public class Entity {
  
     public void AddComponent(Component component)
     {
-        if(RenderComponent.class.isInstance(component))
-            renderComponent = (RenderComponent)component;
+        if(ImageRenderComponent.class.isInstance(component))
+            renderComponent = (ImageRenderComponent)component;
  
         component.setOwnerEntity(this);
 	components.add(component);

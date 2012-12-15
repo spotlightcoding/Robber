@@ -12,11 +12,11 @@ public class ImageRenderComponent extends Component {
  
 	public ImageRenderComponent(String id, Image image)
 	{
-		super(id);
+		this.id = id;
 		this.image = image;
 	}
  
-	@Override
+	
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
 		Vector2f pos = owner.getPosition();
 		float scale = owner.getScale();
@@ -24,7 +24,7 @@ public class ImageRenderComponent extends Component {
 		image.draw(pos.x, pos.y, scale);
 	}
  
-	@Override
+	
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
 		image.rotate(owner.getRotation() - image.getRotation());
 	}
