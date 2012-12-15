@@ -25,7 +25,7 @@ public class World extends BasicGameState{
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		worldMap = new Image("res/map.png");		
-		worldMap = new Image("res/robber.png");
+		robImg = new Image("res/robber.png");
 		
 		rob = new Entity("Rob");
 		rob.AddComponent(new ImageRenderComponent("robRender",robImg));
@@ -33,9 +33,6 @@ public class World extends BasicGameState{
 		level = new Entity("level");
 		level.AddComponent(new ImageRenderComponent("levelrender", worldMap));
 		level.AddComponent(new LeftRightMovement("mapLeftRight"));
-		
-		
-		
 		
 	}
 
