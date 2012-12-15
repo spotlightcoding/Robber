@@ -18,11 +18,19 @@ public class Floor extends Component {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
+		// Get the position of this block
 		Vector2f pos = owner.getPosition();
+		// Get the position of the character
 		Vector2f robPos = rob.getPosition();
 		
-		if ((rob.state == "") || (rob.state == "")) {
-			
+		// Check to see if Rob is currently falling
+		if ((rob.getState() == Entity.FALLING)) {
+
+			//If Rob is above and touching this block, change his state to normal to halt falling
+			if (((robPos.getX() + rob.getSize().getWidth()) > (pos.getX()) && (robPos.getX() < pos.getX() + owner.getSize().getWidth())) && (robPos.getY() <= (pos.getY()))) {
+				robPos.set(robPos.getX(), pos.getY());
+				rob.setState(Entity.NORMAL);
+			}
 		}
 	}
 }

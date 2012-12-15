@@ -37,6 +37,8 @@ public class LeftRightMovement extends Component {
 			position.x -= 0.4f * delta;
 		}
 		
+		System.out.println(position.x + position.y);
+		
 		
 	}
 	//------------------------------------------------PRIVATE METHODS

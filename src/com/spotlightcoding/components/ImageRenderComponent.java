@@ -29,5 +29,9 @@ public class ImageRenderComponent extends Component {
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
 		image.rotate(owner.getRotation() - image.getRotation());
 	}
+	
+	public Image getImage() {
+		return image;
+	}
  
 }
