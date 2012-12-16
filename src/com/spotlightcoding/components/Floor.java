@@ -19,6 +19,7 @@ public class Floor extends Component {
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
 		// Get the position of this block
 		Vector2f pos = owner.getPosition();
+		
 		// Get the position of the character
 		Vector2f robPos = rob.getPosition();
 		

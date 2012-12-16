@@ -32,9 +32,8 @@ public class MoveJumping extends Component{
 		Vector2f position = owner.getPosition();
 		robState = owner.getState();
 					
-		if(input.isKeyPressed(Input.KEY_W) && (jumpCount <=1)){
+		if((input.isKeyPressed(Input.KEY_W)) || (input.isKeyPressed(Input.KEY_UP)) && (jumpCount <=1)){
 			speed= 0.4f;
-			//state == normal stopping it
 			prevHeight = position.y;
 			topHeight = position.y - JUMP_HEIGHT;
 			owner.setState(Entity.JUMPING);
