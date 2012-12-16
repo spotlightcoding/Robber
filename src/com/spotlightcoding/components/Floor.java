@@ -22,15 +22,14 @@ public class Floor extends Component {
 		
 		// Get the position of the character
 		Vector2f robPos = rob.getPosition();
-		
-		// Check to see if Rob is currently falling
-		if ((rob.getState() == Entity.FALLING)) {
 
-			//If Rob is above and touching this block, change his state to normal to halt falling
-			if (((robPos.getX() + rob.getSize().getWidth()) > (pos.getX()) && (robPos.getX() < pos.getX() + owner.getSize().getWidth())) && ((robPos.getY() + rob.getSize().getHeight())+5 >= (pos.getY()))) {
-				robPos.set(robPos.getX(), pos.getY() - (int)(rob.getSize().getHeight())+5);
-				rob.setState(Entity.NORMAL);
-			}
-		}
+		//If Rob is above and touching this block, change his state to normal to halt falling
+		if ((rob.getState() == Entity.FALLING) && ((robPos.getX() + rob.getSize().getWidth()) >= (pos.getX()) && (robPos.getX() <= pos.getX() + owner.getSize().getWidth())) && ((robPos.getY() + rob.getSize().getHeight()) + 5 >= (pos.getY()))) {
+			robPos.set(robPos.getX(), pos.getY() - (int)(rob.getSize().getHeight())+5);
+			rob.setState(Entity.NORMAL);
+		} else if ((rob.getState() != Entity.JUMPING) && ((robPos.getX()) >= (pos.getX()) && (robPos.getX() <= pos.getX() + owner.getSize().getWidth())) && ((robPos.getY() + rob.getSize().getHeight()) + 5 <= (pos.getY()))) {
+			rob.setState(Entity.FALLING);
+		}		
+		
 	}
 }
