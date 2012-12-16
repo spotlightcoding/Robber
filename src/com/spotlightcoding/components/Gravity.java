@@ -22,7 +22,7 @@ public class Gravity extends Component{
 		Vector2f position = owner.getPosition();
 		
 		if (rob.getState() == Entity.FALLING){
-			position.y += 0.6f * delta;
+			position.y += 0.8f * delta;
 		}
 		
 		//System.out.println(this.robState);

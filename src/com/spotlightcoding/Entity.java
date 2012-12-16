@@ -38,6 +38,7 @@ public class Entity {
     public Entity(String id, String type)
     {
         this.id = id;
+        size = new Dimension();
         this.state = NORMAL;
         this.type = type;
         components = new ArrayList<Component>();

@@ -33,6 +33,7 @@ public class World extends BasicGameState{
 	
 	public World(int state){
 		
+		
 	}
 	
 	@Override
@@ -42,6 +43,8 @@ public class World extends BasicGameState{
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
 		hole = new Image("res/hole.png");
+
+		
 
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
