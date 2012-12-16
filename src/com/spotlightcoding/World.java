@@ -29,7 +29,7 @@ public class World extends BasicGameState{
 	
 	ArrayList <Entity>blocks;
 	
-	public static final int GROUND_LEVEL = 400;
+	public static final int GROUND_LEVEL = 500;
 	
 	public World(int state){
 		
@@ -114,7 +114,7 @@ public class World extends BasicGameState{
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
-			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth())+100, GROUND_LEVEL));			
+			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), GROUND_LEVEL));	
 			
 			count++;
 		}
