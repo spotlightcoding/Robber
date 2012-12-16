@@ -17,15 +17,19 @@ import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.components.LeftRightMovement;
 import com.spotlightcoding.components.Floor;
 import com.spotlightcoding.components.MoveJumping;
+import com.spotlightcoding.components.Hole;
 
 public class World extends BasicGameState{
 	Image worldMap;
 	Image robImg;
 	Image floorImg;
+	Image hole;
 	Entity level;
 	Entity rob;
 	
 	ArrayList <Entity>blocks;
+	
+	public static final int GROUND_LEVEL = 400;
 	
 	public World(int state){
 		
@@ -37,17 +41,17 @@ public class World extends BasicGameState{
 		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
-		
+		hole = new Image("res/hole.png");
 
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
-		level.addComponent(new LeftRightMovement());
+		level.addComponent(new LeftRightMovement(rob));
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
 		rob.addComponent(new Gravity(rob));
 		rob.addComponent(new MoveJumping());
-		rob.setPosition(new Vector2f(400,300));
+		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
 		blocks = this.getLevelBlocks();
 	}
@@ -76,6 +80,9 @@ public class World extends BasicGameState{
 		ArrayList <Entity>arrBlocks = new ArrayList<Entity>();
 		
 		arrBlocks.add(new Entity("floor1", "floor"));
+		arrBlocks.add(new Entity("hole1", "hole"));
+		arrBlocks.add(new Entity("hole2", "hole"));
+		arrBlocks.add(new Entity("hole3", "hole"));
 		arrBlocks.add(new Entity("floor2", "floor"));
 		arrBlocks.add(new Entity("floor3", "floor"));
 		arrBlocks.add(new Entity("floor4", "floor"));
@@ -100,10 +107,14 @@ public class World extends BasicGameState{
 			
 			if (block.getType() == "floor") {
 				block.addComponent(new Floor(rob));
-				block.addComponent(new ImageRenderComponent(floorImg));
-				block.addComponent(new LeftRightMovement());
-				block.setPosition(new Vector2f((int)(count*block.getSize().getWidth())+100, 400));
+				block.addComponent(new ImageRenderComponent(floorImg));				
+			}else if (block.getType() == "hole") {
+				block.addComponent(new Hole(rob));
+				block.addComponent(new ImageRenderComponent(hole));
 			}
+			
+			block.addComponent(new LeftRightMovement(rob));
+			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth())+100, GROUND_LEVEL));			
 			
 			count++;
 		}
