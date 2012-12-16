@@ -42,7 +42,7 @@ public class LeftRightMovement extends Component {
 					rob.setBarrier(Entity.BARRIER_NONE);
 				}
 			}
-			if ((rob.getBarrier() != Entity.BARRIER_RIGHT) && (input.isKeyDown(Input.KEY_D)) || (input.isKeyDown(Input.KEY_RIGHT))){
+			if ((rob.getBarrier() != Entity.BARRIER_RIGHT) && ((input.isKeyDown(Input.KEY_D)) || (input.isKeyDown(Input.KEY_RIGHT)))){
 				position.x -= 0.4f * delta;
 				if (rob.getBarrier() == Entity.BARRIER_LEFT) {
 					rob.setBarrier(Entity.BARRIER_NONE);

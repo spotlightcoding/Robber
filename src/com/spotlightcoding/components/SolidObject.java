@@ -17,15 +17,15 @@ public class SolidObject extends Component {
 	
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
 		
-		if (((rob.getPosition().getX() + rob.getSize().getWidth()) > (owner.getPosition().getX() + owner.getSize().getWidth())) && ((rob.getPosition().getX()) <= owner.getPosition().getX() + owner.getSize().getWidth()) && ((rob.getPosition().getY() + rob.getSize().getHeight()) >= owner.getPosition().getY() + 6)) {
+		if (((rob.getPosition().getX() + rob.getSize().getWidth()) > (owner.getPosition().getX() + owner.getSize().getWidth())) && ((rob.getPosition().getX()) < owner.getPosition().getX() + owner.getSize().getWidth()) && ((rob.getPosition().getY() + rob.getSize().getHeight()) > owner.getPosition().getY() + 6)) {
 			// Stop left movement
 			rob.setBarrier(Entity.BARRIER_LEFT);
-		} else if (((rob.getPosition().getX() + rob.getSize().getWidth()) > (owner.getPosition().getX() + owner.getSize().getWidth())) && ((rob.getPosition().getX()) <= owner.getPosition().getX() + owner.getSize().getWidth()) && ((rob.getPosition().getY() + rob.getSize().getHeight()) <= owner.getPosition().getY() + 6)) {
+		} else if (((rob.getPosition().getX() + rob.getSize().getWidth()) > (owner.getPosition().getX() + owner.getSize().getWidth())) && ((rob.getPosition().getX()) < owner.getPosition().getX() + owner.getSize().getWidth()) && ((rob.getPosition().getY() + rob.getSize().getHeight()) < owner.getPosition().getY() + 6)) {
 			rob.setBarrier(Entity.BARRIER_NONE);
-		} else if ((rob.getPosition().getX() < owner.getPosition().getX()) && (rob.getPosition().getX() + rob.getSize().getWidth()) >= owner.getPosition().getX() && ((rob.getPosition().getY() + rob.getSize().getHeight()) >= owner.getPosition().getY() + 6)) {
+		} else if ((rob.getPosition().getX() < owner.getPosition().getX()) && (rob.getPosition().getX() + rob.getSize().getWidth()) > owner.getPosition().getX() && ((rob.getPosition().getY() + rob.getSize().getHeight()) > owner.getPosition().getY() + 6)) {
 			// Stop right movement
 			rob.setBarrier(Entity.BARRIER_RIGHT);
-		} else if ((rob.getPosition().getX() < owner.getPosition().getX()) && (rob.getPosition().getX() + rob.getSize().getWidth()) >= owner.getPosition().getX() && ((rob.getPosition().getY() + rob.getSize().getHeight()) <= owner.getPosition().getY() + 6)) {
+		} else if ((rob.getPosition().getX() < owner.getPosition().getX()) && (rob.getPosition().getX() + rob.getSize().getWidth()) > owner.getPosition().getX() && ((rob.getPosition().getY() + rob.getSize().getHeight()) < owner.getPosition().getY() + 6)) {
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
 		

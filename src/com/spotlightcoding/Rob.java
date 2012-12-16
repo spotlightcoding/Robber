@@ -25,6 +25,8 @@ public class Rob extends StateBasedGame{
 		try{
 			appgc = new AppGameContainer(new Rob("Rob"));// what game is going in the window
 			appgc.setDisplayMode(750, 600, false);
+			//appgc.setVSync(true);
+			//appgc.setMaximumLogicUpdateInterval(50);
 			appgc.start();
 		}catch(SlickException e){
 			e.printStackTrace();
