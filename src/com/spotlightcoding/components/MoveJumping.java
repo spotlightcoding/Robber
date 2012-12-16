@@ -10,15 +10,17 @@ import com.spotlightcoding.Entity;
 
 public class MoveJumping extends Component{
 	//------------------------------------------------CONSTANTS
-	private final int JUMP_HEIGHT = 96;
+	private final int JUMP_HEIGHT = 128;
 	//------------------------------------------------PROPERTIES
 	private int robState;
 	private float prevHeight; 
 	private float topHeight;
 	private float speed; 
+	private int jumpCount;
 	//------------------------------------------------CONSTRUCTOR
 	public MoveJumping(){
 		this.speed = 0.4f;
+		jumpCount = 0;
 	}
 	//------------------------------------------------GETS/SETS
 	//------------------------------------------------PUBLIC METHODS
@@ -30,23 +32,35 @@ public class MoveJumping extends Component{
 		Vector2f position = owner.getPosition();
 		robState = owner.getState();
 					
-		if((input.isKeyDown(Input.KEY_W) && (owner.getState() == Entity.NORMAL))){
+		if(input.isKeyPressed(Input.KEY_W) && (jumpCount <=1)){
+			speed= 0.4f;
+			//state == normal stopping it
 			prevHeight = position.y;
 			topHeight = position.y - JUMP_HEIGHT;
 			owner.setState(Entity.JUMPING);
+			if(jumpCount == 1){
+				speed = 0.9f;
+				topHeight =  position.y - (JUMP_HEIGHT + 32);
+			}
+			jumpCount++;
 		}
 			
 		if(owner.getState() == Entity.JUMPING){
-
+			
 			if(position.y >= topHeight) {
 				position.y -= speed * delta;
-				
+			
 			}else if(position.y <= topHeight){
 				owner.setState(Entity.FALLING);
 			}
-			
 		}
-			
+		if((owner.getState() == Entity.NORMAL) && (jumpCount != 0) ){
+			jumpCount = 0;
+		}
+		
+		
+		
+		
 		
 	}
 	//------------------------------------------------PRIVATE METHODS
