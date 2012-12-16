@@ -12,8 +12,7 @@ public class Floor extends Component {
 	
 	Entity rob;
 	
-	public Floor(String id, Entity rob) {
-		this.id = id;
+	public Floor(Entity rob) {
 		this.rob = rob;
 	}
 	
@@ -27,8 +26,8 @@ public class Floor extends Component {
 		if ((rob.getState() == Entity.FALLING)) {
 
 			//If Rob is above and touching this block, change his state to normal to halt falling
-			if (((robPos.getX() + rob.getSize().getWidth()) > (pos.getX()) && (robPos.getX() < pos.getX() + owner.getSize().getWidth())) && (robPos.getY() <= (pos.getY()))) {
-				robPos.set(robPos.getX(), pos.getY());
+			if (((robPos.getX() + rob.getSize().getWidth()) > (pos.getX()) && (robPos.getX() < pos.getX() + owner.getSize().getWidth())) && ((robPos.getY() + rob.getSize().getHeight()) >= (pos.getY()))) {
+				robPos.set(robPos.getX(), pos.getY() - (int)(rob.getSize().getHeight()));
 				rob.setState(Entity.NORMAL);
 			}
 		}

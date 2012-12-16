@@ -17,8 +17,7 @@ public class MoveJumping extends Component{
 	private float topHeight;
 	private float speed; 
 	//------------------------------------------------CONSTRUCTOR
-	public MoveJumping(String myId){
-		this.id = myId;
+	public MoveJumping(){
 		this.speed = 0.4f;
 	}
 	//------------------------------------------------GETS/SETS
@@ -42,17 +41,12 @@ public class MoveJumping extends Component{
 			if(position.y >= topHeight) {
 				position.y -= speed * delta;
 				
-				
 			}else if(position.y <= topHeight){
 				owner.setState(Entity.FALLING);
-				
 			}
 			
 		}
 			
-		
-		
-		
 		
 	}
 	//------------------------------------------------PRIVATE METHODS
