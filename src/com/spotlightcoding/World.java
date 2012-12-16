@@ -24,6 +24,7 @@ public class World extends BasicGameState{
 	
 	public World(int state){
 		
+		
 	}
 	
 	@Override
@@ -32,15 +33,22 @@ public class World extends BasicGameState{
 		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		
+		level = new Entity("level");
+		level.AddComponent(new ImageRenderComponent("levelrender", worldMap));
+		
+		level.AddComponent(new LeftRightMovement("mapLeftRight"));
+		
+		
+		
+		
+		
 		rob = new Entity("Rob");
 		rob.AddComponent(new ImageRenderComponent("robRender",robImg));
 		rob.AddComponent(new Gravity("robGravity"));
 		rob.AddComponent(new MoveJumping("robJumping"));
 		rob.setPosition(new Vector2f(400,300));
 		
-		level = new Entity("level");
-		level.AddComponent(new ImageRenderComponent("levelrender", worldMap));
-		level.AddComponent(new LeftRightMovement("mapLeftRight"));
+		
 		
 	}
 

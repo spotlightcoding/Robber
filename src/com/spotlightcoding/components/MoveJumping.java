@@ -41,11 +41,11 @@ public class MoveJumping extends Component{
 
 			if(position.y >= topHeight) {
 				position.y -= speed * delta;
-				System.out.println(position.y + " ---"+ topHeight + " JUMPING");
+				
 				
 			}else if(position.y <= topHeight){
 				owner.setState(Entity.FALLING);
-				System.out.println(position.y + " FALLING");
+				
 			}
 			
 		}

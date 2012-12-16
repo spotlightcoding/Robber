@@ -37,6 +37,7 @@ public class Entity {
     public Entity(String id)
     {
         this.id = id;
+        size = new Dimension();
         this.state = NORMAL;
         components = new ArrayList<Component>();
         position = new Vector2f(0,0);
