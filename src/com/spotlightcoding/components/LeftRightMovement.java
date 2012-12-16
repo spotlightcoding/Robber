@@ -12,12 +12,7 @@ import com.spotlightcoding.Entity;
 import com.spotlightcoding.World;
 
 public class LeftRightMovement extends Component {
-	
-	
-	//------------------------------------------------CONSTANTS
-	
-	
-	
+
 	//------------------------------------------------PROPERTIES
 	Entity rob;
 	
@@ -26,11 +21,9 @@ public class LeftRightMovement extends Component {
 		this.rob = rob;
 		
 	}
-	//------------------------------------------------GETS/SETS
 	//------------------------------------------------PUBLIC METHODS
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
-		// TODO add a check in entity to tell if boundary is reached in level
 		
 		if (rob.getPosition().getY() + rob.getSize().getHeight() < (World.GROUND_LEVEL + 6)) {
 			Input input = gc.getInput();
@@ -42,11 +35,7 @@ public class LeftRightMovement extends Component {
 			if((input.isKeyDown(Input.KEY_D)) || (input.isKeyDown(Input.KEY_RIGHT))){
 				position.x -= 0.4f * delta;
 			}
-		}
-
-		// System.out.println(position.x + position.y);
-		
+		}	
 	}
-	//------------------------------------------------PRIVATE METHODS
 
 }

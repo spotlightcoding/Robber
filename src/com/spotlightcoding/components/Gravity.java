@@ -9,24 +9,21 @@ import com.spotlightcoding.Component;
 import com.spotlightcoding.Entity;
 
 public class Gravity extends Component{
-	private Entity rob;
 	
 	
-	public Gravity(Entity rob){
-		this.rob = rob;
+	public Gravity(){
+
 	}
 	
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
+		
 		Vector2f position = owner.getPosition();
 		
-		if (rob.getState() == Entity.FALLING){
-			position.y += 0.8f * delta;
+		if (owner.getState() == Entity.FALLING){
+			position.y += 0.9f * delta;
 		}
-		
-		//System.out.println(this.robState);
-		
 	}
 
 }

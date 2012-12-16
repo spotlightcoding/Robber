@@ -14,27 +14,30 @@ import com.spotlightcoding.components.ImageRenderComponent;
 
 public class Entity {
 	//------------------------------CONSTANTS
+	// player constants
 	public static final int NORMAL = 0;
 	public static final int FALLING = 1;
 	public static final int JUMPING = 2;
 	public static final int DEAD = 3;
 	
-	
-	
+	//------------------------------PROPERTIES
     private String id;
-    
     private Dimension size;
     private Vector2f position;
     private float scale;
     private float rotation;
     private int state;
     private String type;
+    //robot propertys
+    private boolean activated;
+    private String direction;
     
  
     ImageRenderComponent renderComponent;
  
     ArrayList<Component> components;
- 
+    
+	//------------------------------CONSTRUCTOR
     public Entity(String id, String type)
     {
         this.id = id;
@@ -47,7 +50,7 @@ public class Entity {
         rotation = 0;
         size = new Dimension();
     }
- 
+	//------------------------------GETS/SET
     public void addComponent(Component component)
     {
         if(ImageRenderComponent.class.isInstance(component)){
@@ -117,7 +120,26 @@ public class Entity {
     public void setScale(float scale) {
     	this.scale = scale;
     }
- 
+    
+    public void setBotActive(boolean myActive){
+    	activated = myActive;
+    }
+    
+    public boolean isBotActive(){
+    	return activated;
+    }
+    
+    public void setDirection(String myDirec){
+    	direction = myDirec;
+    }
+    public String getDirection(){
+    	return direction;
+    }
+    
+    
+    
+	//------------------------------PUBLIC METHODS
+    
     public void update(GameContainer gc, StateBasedGame sb, int delta)
     {
         for(Component component : components)
