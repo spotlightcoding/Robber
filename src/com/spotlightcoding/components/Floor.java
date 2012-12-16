@@ -12,8 +12,7 @@ public class Floor extends Component {
 	
 	Entity rob;
 	
-	public Floor(String id, Entity rob) {
-		this.id = id;
+	public Floor(Entity rob) {
 		this.rob = rob;
 	}
 	

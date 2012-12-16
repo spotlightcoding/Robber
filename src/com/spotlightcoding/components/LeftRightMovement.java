@@ -18,8 +18,8 @@ public class LeftRightMovement extends Component {
 	//------------------------------------------------PROPERTIES
 	
 	//------------------------------------------------CONSTRUCTOR
-	public LeftRightMovement(String myId){
-		this.id = myId;
+	public LeftRightMovement(){
+		
 		
 	}
 	//------------------------------------------------GETS/SETS
@@ -37,7 +37,7 @@ public class LeftRightMovement extends Component {
 			position.x -= 0.4f * delta;
 		}
 		
-		System.out.println(position.x + position.y);
+		// System.out.println(position.x + position.y);
 		
 		
 	}

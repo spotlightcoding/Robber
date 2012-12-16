@@ -39,14 +39,16 @@ public class Entity {
     {
         this.id = id;
         this.state = NORMAL;
+        this.type = type;
         components = new ArrayList<Component>();
         
         position = new Vector2f(0,0);
         scale = 1;
         rotation = 0;
+        size = new Dimension();
     }
  
-    public void AddComponent(Component component)
+    public void addComponent(Component component)
     {
         if(ImageRenderComponent.class.isInstance(component)){
         	renderComponent = (ImageRenderComponent)component;
@@ -94,6 +96,10 @@ public class Entity {
     
     public Dimension getSize() {
     	return size;
+    }
+    
+    public String getType() {
+    	return this.type;
     }
     
     public  void setState(int myState){

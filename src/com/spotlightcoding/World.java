@@ -20,6 +20,7 @@ import com.spotlightcoding.components.Floor;
 public class World extends BasicGameState{
 	Image worldMap;
 	Image robImg;
+	Image floorImg;
 	Entity level;
 	Entity rob;
 	
@@ -33,16 +34,18 @@ public class World extends BasicGameState{
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		worldMap = new Image("res/mapBlank.png");
 		robImg = new Image("res/robber.png");
-		
-		rob = new Entity("Rob", "character");
-		rob.AddComponent(new ImageRenderComponent("robRender",robImg));
-		rob.AddComponent(new Gravity("robGravity", rob.getState()));
-		rob.setPosition(new Vector2f(400,300));
+		floorImg = new Image("res/floor.png");
 		
 		level = new Entity("level", "environment");
-		level.AddComponent(new ImageRenderComponent("levelrender", worldMap));
-		level.AddComponent(new LeftRightMovement("mapLeftRight"));
-
+		level.addComponent(new ImageRenderComponent(worldMap));
+		level.addComponent(new LeftRightMovement());
+		
+		rob = new Entity("Rob", "character");
+		rob.addComponent(new ImageRenderComponent(robImg));
+		rob.addComponent(new Gravity("robGravity", rob.getState()));
+		rob.addComponent(new MoveJumping());
+		rob.setPosition(new Vector2f(400,300));
+		
 		blocks = this.getLevelBlocks();
 	}
 
@@ -50,6 +53,9 @@ public class World extends BasicGameState{
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
 		level.render(gc,null,gr);
 		rob.render(gc,null,gr);
+		for (Entity block : blocks) {
+			block.render(gc, null, gr);
+		}
 	}
 
 	@Override
@@ -70,6 +76,28 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor7", "floor"));
 		arrBlocks.add(new Entity("floor8", "floor"));
 		arrBlocks.add(new Entity("floor9", "floor"));
+		arrBlocks.add(new Entity("floor11", "floor"));
+		arrBlocks.add(new Entity("floor10", "floor"));
+		arrBlocks.add(new Entity("floor12", "floor"));
+		arrBlocks.add(new Entity("floor13", "floor"));
+		arrBlocks.add(new Entity("floor14", "floor"));
+		arrBlocks.add(new Entity("floor15", "floor"));
+		arrBlocks.add(new Entity("floor16", "floor"));
+		arrBlocks.add(new Entity("floor17", "floor"));
+		arrBlocks.add(new Entity("floor18", "floor"));
+		arrBlocks.add(new Entity("floor19", "floor"));
+		
+		int count = 0;
+		for (Entity block : arrBlocks) {
+			
+			if (block.getType() == "floor") {
+				block.addComponent(new Floor(rob));
+				block.addComponent(new ImageRenderComponent(floorImg));
+				block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), 400));
+			}
+			
+			count++;
+		}
 		
 		return arrBlocks;
 	}
