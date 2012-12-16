@@ -11,6 +11,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.spotlightcoding.components.ImageRenderComponent;
+import com.spotlightcoding.Component;
 
 public class Entity {
 	//------------------------------CONSTANTS
@@ -18,6 +19,11 @@ public class Entity {
 	public static final int FALLING = 1;
 	public static final int JUMPING = 2;
 	public static final int DEAD = 3;
+	public static final int AT_WALL_LEFT = 4;
+	
+	public static final String BARRIER_LEFT = "barrierLeft";
+	public static final String BARRIER_RIGHT = "barrierRight";
+	public static final String BARRIER_NONE = "barrierNone";
 	
 	
 	
@@ -29,6 +35,7 @@ public class Entity {
     private float rotation;
     private int state;
     private String type;
+    private String barrier;
     
  
     ImageRenderComponent renderComponent;
@@ -46,6 +53,7 @@ public class Entity {
         scale = 1;
         rotation = 0;
         size = new Dimension();
+        barrier = BARRIER_NONE;
     }
  
     public void addComponent(Component component)
@@ -102,8 +110,16 @@ public class Entity {
     	return this.type;
     }
     
-    public  void setState(int myState){
+    public String getBarrier() {
+    	return this.barrier;
+    }
+    
+    public void setState(int myState){
     	this.state = myState;
+    }
+    
+    public void setBarrier(String barrier){
+    	this.barrier = barrier;
     }
  
     public void setPosition(Vector2f position) {

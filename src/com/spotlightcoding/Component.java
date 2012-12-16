@@ -2,6 +2,7 @@ package com.spotlightcoding;
  
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
+import com.spotlightcoding.Entity;
  
 
  

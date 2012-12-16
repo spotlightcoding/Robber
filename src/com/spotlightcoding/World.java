@@ -18,12 +18,14 @@ import com.spotlightcoding.components.LeftRightMovement;
 import com.spotlightcoding.components.Floor;
 import com.spotlightcoding.components.MoveJumping;
 import com.spotlightcoding.components.Hole;
+import com.spotlightcoding.components.SolidObject;
 
 public class World extends BasicGameState{
 	Image worldMap;
 	Image robImg;
 	Image floorImg;
 	Image hole;
+	Image vault;
 	Entity level;
 	Entity rob;
 	
@@ -43,8 +45,7 @@ public class World extends BasicGameState{
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
 		hole = new Image("res/hole.png");
-
-		
+		vault = new Image("res/vault-door.png");
 
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
@@ -90,7 +91,7 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor3", "floor"));
 		arrBlocks.add(new Entity("floor4", "floor"));
 		arrBlocks.add(new Entity("floor5", "floor"));
-		arrBlocks.add(new Entity("floor6", "floor"));
+		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor7", "floor"));
 		arrBlocks.add(new Entity("floor8", "floor"));
 		arrBlocks.add(new Entity("floor9", "floor"));
@@ -114,10 +115,14 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "hole") {
 				block.addComponent(new Hole(rob));
 				block.addComponent(new ImageRenderComponent(hole));
+			}else if (block.getType() == "vaultDoor") {
+				block.addComponent(new SolidObject(rob));
+				block.addComponent(new Floor(rob));
+				block.addComponent(new ImageRenderComponent(vault));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
-			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), GROUND_LEVEL));	
+			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), (int)(GROUND_LEVEL - (block.getSize().getHeight() - 32))));
 			
 			count++;
 		}
