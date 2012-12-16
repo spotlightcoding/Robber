@@ -54,21 +54,22 @@ public class World extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
-		level.render(gc,null,gr);
-		rob.render(gc,null,gr);
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
 		}
+		
+		level.render(gc,null,gr);
+		rob.render(gc,null,gr);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
-			level.update(gc, sb, delta);
-			rob.update(gc, sb, delta);
-			
-			for (Entity block : blocks) {
-				block.update(gc, sb, delta);
-			}
+		for (Entity block : blocks) {
+			block.update(gc, sb, delta);
+		}
+		
+		level.update(gc, sb, delta);
+		rob.update(gc, sb, delta);
 	}
 	
 	private ArrayList<Entity> getLevelBlocks() {
