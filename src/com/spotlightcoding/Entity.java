@@ -41,7 +41,6 @@ public class Entity {
         this.state = NORMAL;
         this.type = type;
         components = new ArrayList<Component>();
-        
         position = new Vector2f(0,0);
         scale = 1;
         rotation = 0;

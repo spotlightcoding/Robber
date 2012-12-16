@@ -9,37 +9,46 @@ import com.spotlightcoding.Component;
 import com.spotlightcoding.Entity;
 
 public class MoveJumping extends Component{
-//------------------------------------------------CONSTANTS
-	
-	
-	
+	//------------------------------------------------CONSTANTS
+	private final int JUMP_HEIGHT = 96;
 	//------------------------------------------------PROPERTIES
 	private int robState;
+	private float prevHeight; 
+	private float topHeight;
+	private float speed; 
 	//------------------------------------------------CONSTRUCTOR
-	public MoveJumping(String myId,int st){
-		this.id = myId;
-		this.robState = st;
-		
+	public MoveJumping(){
+		this.speed = 0.4f;
 	}
 	//------------------------------------------------GETS/SETS
 	//------------------------------------------------PUBLIC METHODS
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
-		// TODO add a check in entity to tell if boundary is reached in level
+		
+		
 		Input input = gc.getInput();
 		Vector2f position = owner.getPosition();
-		if(robState == Entity.JUMPING){
-			if(input.isKeyDown(Input.KEY_W)){
-				position.y += 0.6f * delta;
-			}
-			if(input.isKeyDown(Input.KEY_D)){
-				position.y += 0.6f * delta;
-			}
-			if(input.isKeyDown(Input.KEY_A)){
-				position.y += 0.6f * delta;
+		robState = owner.getState();
+					
+		if((input.isKeyDown(Input.KEY_W) && (owner.getState() == Entity.NORMAL))){
+			prevHeight = position.y;
+			topHeight = position.y - JUMP_HEIGHT;
+			owner.setState(Entity.JUMPING);
+		}
+			
+		if(owner.getState() == Entity.JUMPING){
+
+			if(position.y >= topHeight) {
+				position.y -= speed * delta;
+				// System.out.println(position.y + " ---"+ topHeight + " JUMPING");
+				
+			}else if(position.y <= topHeight){
+				owner.setState(Entity.FALLING);
+				//System.out.println(position.y + " FALLING");
 			}
 			
 		}
+			
 		
 		
 		

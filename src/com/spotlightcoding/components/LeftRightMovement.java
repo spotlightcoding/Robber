@@ -36,9 +36,8 @@ public class LeftRightMovement extends Component {
 		if(input.isKeyDown(Input.KEY_D)){
 			position.x -= 0.4f * delta;
 		}
-		
+
 		// System.out.println(position.x + position.y);
-		
 		
 	}
 	//------------------------------------------------PRIVATE METHODS

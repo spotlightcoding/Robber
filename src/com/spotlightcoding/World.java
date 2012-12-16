@@ -16,6 +16,7 @@ import com.spotlightcoding.components.Gravity;
 import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.components.LeftRightMovement;
 import com.spotlightcoding.components.Floor;
+import com.spotlightcoding.components.MoveJumping;
 
 public class World extends BasicGameState{
 	Image worldMap;
@@ -32,17 +33,19 @@ public class World extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		worldMap = new Image("res/mapBlank.png");
+
+		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
 		
+
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
 		level.addComponent(new LeftRightMovement());
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
-		rob.addComponent(new Gravity("robGravity", rob.getState()));
+		rob.addComponent(new Gravity(rob));
 		rob.addComponent(new MoveJumping());
 		rob.setPosition(new Vector2f(400,300));
 		
@@ -62,6 +65,10 @@ public class World extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
 			level.update(gc, sb, delta);
 			rob.update(gc, sb, delta);
+			
+			for (Entity block : blocks) {
+				block.update(gc, sb, delta);
+			}
 	}
 	
 	private ArrayList<Entity> getLevelBlocks() {
@@ -93,7 +100,8 @@ public class World extends BasicGameState{
 			if (block.getType() == "floor") {
 				block.addComponent(new Floor(rob));
 				block.addComponent(new ImageRenderComponent(floorImg));
-				block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), 400));
+				block.addComponent(new LeftRightMovement());
+				block.setPosition(new Vector2f((int)(count*block.getSize().getWidth())+100, 400));
 			}
 			
 			count++;
