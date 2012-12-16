@@ -16,7 +16,7 @@ public class Rob extends StateBasedGame{
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException{
 		this.getState(0).init(gc, this);
-		this.enterState(0); 
+		this.enterState(0);
 		
 	}
 	

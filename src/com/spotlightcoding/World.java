@@ -91,15 +91,16 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor3", "floor"));
 		arrBlocks.add(new Entity("floor4", "floor"));
 		arrBlocks.add(new Entity("floor5", "floor"));
-		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor7", "floor"));
 		arrBlocks.add(new Entity("floor8", "floor"));
 		arrBlocks.add(new Entity("floor9", "floor"));
 		arrBlocks.add(new Entity("floor11", "floor"));
+		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor10", "floor"));
 		arrBlocks.add(new Entity("floor12", "floor"));
 		arrBlocks.add(new Entity("floor13", "floor"));
 		arrBlocks.add(new Entity("floor14", "floor"));
+		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor15", "floor"));
 		arrBlocks.add(new Entity("floor16", "floor"));
 		arrBlocks.add(new Entity("floor17", "floor"));
