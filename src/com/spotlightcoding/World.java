@@ -125,10 +125,6 @@ public class World extends BasicGameState{
 			
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
-		level.update(gc, sb, delta);
-		rob.update(gc, sb, delta);
-		bot.update(gc, sb, delta);
-		laserShot.update(gc,sb,delta);
 	}
 	
 	
