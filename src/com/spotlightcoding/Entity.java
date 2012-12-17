@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Animation;
 
 import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.Component;
@@ -20,7 +21,6 @@ public class Entity {
 	public static final int FALLING = 1;
 	public static final int JUMPING = 2;
 	public static final int DEAD = 3;
-	public static final int AT_WALL_LEFT = 4;
 	
 	public static final String BARRIER_LEFT = "barrierLeft";
 	public static final String BARRIER_RIGHT = "barrierRight";
@@ -34,14 +34,14 @@ public class Entity {
     private float rotation;
     private int state;
     private String type;
+    private boolean animate;
+    private Animation animation;
     
     // Robot properties
     private boolean activated;
     private String direction;
     
     private String barrier;
-
-    
  
     ImageRenderComponent renderComponent;
  
@@ -60,6 +60,7 @@ public class Entity {
         rotation = 0;
         size = new Dimension();
         barrier = BARRIER_NONE;
+        animation = null;
     }
 	//------------------------------GETS/SET
     public void addComponent(Component component)
@@ -77,7 +78,7 @@ public class Entity {
     {
         for(Component comp : components)
 		{
-		    if ( comp.getId().equalsIgnoreCase(id) ) {
+		    if (comp.getId().equalsIgnoreCase(id)) {
 		    	return comp;
 		    }
 		}
@@ -120,6 +121,18 @@ public class Entity {
     	return this.barrier;
     }
     
+    public boolean getAnimate() {
+    	return animate;
+    }
+    
+    public Animation getAnimation() {
+    	return animation;
+    }
+    
+    public void setAnimate(boolean setting) {
+    	this.animate = setting;
+    }
+    
     public void setState(int myState){
     	this.state = myState;
     }
@@ -144,6 +157,10 @@ public class Entity {
     	activated = myActive;
     }
     
+    public void setAnimation(Animation animation) {
+    	this.animation = animation;
+    }
+    
     public boolean isBotActive(){
     	return activated;
     }
@@ -163,6 +180,13 @@ public class Entity {
         {
             component.update(gc, sb, delta);
         }
+        
+        if ((animate) && (renderComponent.getAnimation() == null)) {
+        	renderComponent.setAnimation(animation);
+			//System.out.println("Set animation");
+        	System.out.println(renderComponent.getAnimation() == null);
+		}
+        
     }
  
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr)

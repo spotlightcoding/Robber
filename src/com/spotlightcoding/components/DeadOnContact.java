@@ -28,14 +28,16 @@ public class DeadOnContact extends Component{
 		robWidth = rob.getSize().width;
 		robHeight = rob.getSize().height;
 		
+		if((robPosition.y + robHeight > position.y)){
+
 		
-		if((robPosition.x >= position.x) && (robPosition.x <= position.x + meWidth)){
-			rob.setState(Entity.DEAD);
-			
-		}else if((robPosition.x + robWidth >= position.x) && (robPosition.x + robWidth <= position.x + meWidth)){
-			rob.setState(Entity.DEAD);
+			if((robPosition.x >= position.x) && (robPosition.x <= position.x + meWidth)){
+				rob.setState(Entity.DEAD);
+				
+			}else if((robPosition.x + robWidth >= position.x) && (robPosition.x + robWidth <= position.x + meWidth)){
+				rob.setState(Entity.DEAD);
+			}
 		}
-		
 //		else if((robPosition.y >= position.y) && (robPosition.y <= position.y + meHeight)){
 //			rob.setState(Entity.DEAD);
 //		}else if((robPosition.y + robHeight >= position.y) && (robPosition.y + robHeight <= position.y + meHeight)){

@@ -21,6 +21,7 @@ import com.spotlightcoding.components.Floor;
 import com.spotlightcoding.components.MoveJumping;
 import com.spotlightcoding.components.Hole;
 import com.spotlightcoding.components.SolidObject;
+import com.spotlightcoding.components.TriggerAnimation;
 
 public class World extends BasicGameState{
 
@@ -80,7 +81,7 @@ public class World extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
 		level.render(gc,null,gr);
-		rob.render(gc,null,gr);
+		
 		
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
@@ -89,7 +90,8 @@ public class World extends BasicGameState{
 		if(bot.isBotActive()){
 			laserShot.render(gc,null,gr);
 		}
-		
+		System.out.println(rob.getState());
+		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
 		aniCoinSpin.draw(300,300);
 		
@@ -169,8 +171,9 @@ public class World extends BasicGameState{
 				block.addComponent(new Floor(rob));
 				block.addComponent(new DeadOnContact(rob));
 				block.addComponent(new ImageRenderComponent(vault));
+				//block.addComponent(new TriggerAnimation(rob, coinSpin, 7, 50));
 			}else if (block.getType() == "robot") {				
-				block.addComponent(new ImageRenderComponent(botImg));				
+				block.addComponent(new ImageRenderComponent(botImg));
 				block.addComponent(new LaserFire(rob,laserShot));
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
