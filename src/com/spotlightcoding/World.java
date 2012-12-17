@@ -1,7 +1,5 @@
 package com.spotlightcoding;
 
-
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
 
+import com.spotlightcoding.components.DeadOnContact;
 import com.spotlightcoding.components.Gravity;
 import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.components.LaserFire;
@@ -26,7 +25,7 @@ import com.spotlightcoding.components.TriggerAnimation;
 
 public class World extends BasicGameState{
 
-	Image worldMap, robImg,floorImg,hole,laserShotImg, botImg,vault,coinSpinImg;
+	Image worldMap, robImg,floorImg,hole,laserShotImg, botImg,vault,coinSpinImg,spikes;
 	Entity level,rob,laserShot,bot;
 	Animation aniCoinSpin;
 	SpriteSheet coinSpin;
@@ -55,12 +54,13 @@ public class World extends BasicGameState{
 		laserShotImg = new Image("res/laser.png");
 		botImg = new Image("res/bot.png");
 		vault = new Image("res/vault-door.png");
+		spikes = new Image("res/spikes.png");
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
 		rob.addComponent(new Gravity());
 		rob.addComponent(new MoveJumping());
-		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
+		rob.setPosition(new Vector2f(375,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
@@ -68,9 +68,12 @@ public class World extends BasicGameState{
 		
 		bot = new Entity("bot", "robot");
 		
+		
 		laserShot = new Entity("laserShot", "environment");
 		laserShot.addComponent(new ImageRenderComponent(laserShotImg));
 		laserShot.addComponent(new LeftRightMovement(rob));
+		
+		
 		
 		blocks = this.getLevelBlocks(0);
 
@@ -91,6 +94,7 @@ public class World extends BasicGameState{
 		
 		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
+
 		// aniCoinSpin.draw(300,300);
 	}
 
@@ -105,7 +109,6 @@ public class World extends BasicGameState{
 			block.update(gc, sb, delta);
 		}
 		
-	
 		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
 			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
 			
@@ -164,6 +167,7 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("hole10", "hole"));
 		arrBlocks.add(new Entity("floor22", "floor"));
 		arrBlocks.add(new Entity("floor23", "floor"));
+		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor24", "floor"));
 		arrBlocks.add(new Entity("floor25", "floor"));
 		arrBlocks.add(new Entity("floor26", "floor"));
@@ -201,6 +205,10 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("floor30", "floor"));
 		arrBlocks.add(new Entity("floor31", "floor"));
+		arrBlocks.add(new Entity("spikes1", "spikes"));
+		arrBlocks.add(new Entity("spikes1", "spikes"));
+		arrBlocks.add(new Entity("spikes1", "spikes"));
+		arrBlocks.add(new Entity("spikes1", "spikes"));
 		arrBlocks.add(new Entity("floor30", "floor"));
 		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("floor31", "floor"));
@@ -212,13 +220,13 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor30", "floor"));
 		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("floor30", "floor"));
+		arrBlocks.add(new Entity("floor31", "floor"));
+		arrBlocks.add(new Entity("floor31", "floor"));
+		arrBlocks.add(new Entity("floor30", "floor"));
+		arrBlocks.add(new Entity("floor31", "floor"));
+		arrBlocks.add(new Entity("floor30", "floor"));
+		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
-		arrBlocks.add(new Entity("floor31", "floor"));
-		arrBlocks.add(new Entity("floor31", "floor"));
-		arrBlocks.add(new Entity("floor30", "floor"));
-		arrBlocks.add(new Entity("floor31", "floor"));
-		arrBlocks.add(new Entity("floor30", "floor"));
-		arrBlocks.add(new Entity("floor31", "floor"));
 		
 		int count = 0;
 		for (Entity block : arrBlocks) {
@@ -232,6 +240,7 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "vaultDoor") {
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
+				//block.addComponent(new DeadOnContact(rob));
 				block.addComponent(new ImageRenderComponent(vault));
 				//block.addComponent(new TriggerAnimation(rob, coinSpin, 7, 50));
 			}else if (block.getType() == "robot") {				
@@ -239,6 +248,9 @@ public class World extends BasicGameState{
 				block.addComponent(new LaserFire(rob,laserShot));
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
+			}else if (block.getType() == "spikes") {
+				block.addComponent(new ImageRenderComponent(spikes));
+				block.addComponent(new DeadOnContact(rob));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));

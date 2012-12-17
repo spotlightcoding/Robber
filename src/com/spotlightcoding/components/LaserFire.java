@@ -40,7 +40,6 @@ public class LaserFire extends Component{
 			Vector2f robPosition = rob.getPosition();
 			Vector2f laserPosition = laser.getPosition();
 			Vector2f position = owner.getPosition();
-			
 			robBotDistance = position.x - robPosition.x;
 			laserBotDistance = position.x - laserPosition.x;
 			
@@ -87,6 +86,7 @@ public class LaserFire extends Component{
 				if((Math.round(laser.getPosition().y) >= Math.round((rob.getPosition().y))) && 
 						(Math.round(laser.getPosition().y) <= Math.round((rob.getPosition().y + rob.getSize().height)))){
 					rob.setState(Entity.DEAD);
+					owner.setBotActive(false);
 				}
 			}
 		}
