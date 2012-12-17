@@ -154,9 +154,7 @@ public class Entity {
     public String getDirection(){
     	return direction;
     }
-    
-    
-    
+
 	//------------------------------PUBLIC METHODS
     
     public void update(GameContainer gc, StateBasedGame sb, int delta)

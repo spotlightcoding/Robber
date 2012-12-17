@@ -43,10 +43,8 @@ public class World extends BasicGameState{
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
 		hole = new Image("res/hole.png");
-		
 		laserShotImg = new Image("res/laser.png");
 		botImg = new Image("res/bot.png");
-		
 		vault = new Image("res/vault-door.png");
 
 		level = new Entity("level", "environment");
@@ -67,6 +65,8 @@ public class World extends BasicGameState{
 		bot.addComponent(new ImageRenderComponent(botImg));
 		bot.addComponent(new LeftRightMovement(rob));
 		bot.addComponent(new LaserFire(rob,laserShot));
+		bot.addComponent(new SolidObject(rob));
+		bot.addComponent(new Floor(rob));
 		bot.setPosition(new Vector2f(600,(int)(GROUND_LEVEL - bot.getSize().getHeight()) +7));
 		
 		laserShot.setPosition(new Vector2f(600,(int)(GROUND_LEVEL - bot.getSize().getHeight()) +40));
@@ -119,7 +119,7 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor12", "floor"));
 		arrBlocks.add(new Entity("floor13", "floor"));
 		arrBlocks.add(new Entity("floor14", "floor"));
-		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
+		//arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
 		arrBlocks.add(new Entity("floor15", "floor"));
 		arrBlocks.add(new Entity("floor16", "floor"));
 		arrBlocks.add(new Entity("floor17", "floor"));

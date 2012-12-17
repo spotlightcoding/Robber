@@ -21,7 +21,6 @@ public class MoveJumping extends Component{
 		this.speed = 0.6f;
 		jumpCount = 0;
 	}
-	//------------------------------------------------GETS/SETS
 	//------------------------------------------------PUBLIC METHODS
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) {
