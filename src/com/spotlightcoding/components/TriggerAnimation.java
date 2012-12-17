@@ -26,18 +26,11 @@ public class TriggerAnimation extends Component {
 		if ((!owner.getAnimate()) && ((rob.getPosition().getX() + rob.getSize().getWidth()) >= owner.getPosition().getX()) && ((rob.getPosition().getX()) <= (owner.getPosition().getX() + owner.getSize().getWidth()))) {
 			if (owner.getAnimation() == null) {
 				owner.setAnimation(new Animation(spritesheet, 0, 0, frames, 0, true, duration, true));
-				// System.out.println("Set animation");
 			}
 			
 			if (!owner.getAnimate()) {
 				owner.setAnimate(true);
 			}
-		} else {
-			if (owner.getAnimate()) {
-				//owner.setAnimate(false);
-			}
-
-			//System.out.println(owner.getAnimate());
 		}
 	}
 }

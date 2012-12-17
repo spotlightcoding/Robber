@@ -176,17 +176,14 @@ public class Entity {
     
     public void update(GameContainer gc, StateBasedGame sb, int delta)
     {
+    	if ((animate) && (renderComponent.getAnimation() == null)) {
+        	renderComponent.setAnimation(animation);
+		}
+    	
         for(Component component : components)
         {
             component.update(gc, sb, delta);
         }
-        
-        if ((animate) && (renderComponent.getAnimation() == null)) {
-        	renderComponent.setAnimation(animation);
-			//System.out.println("Set animation");
-        	System.out.println(renderComponent.getAnimation() == null);
-		}
-        
     }
  
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr)
