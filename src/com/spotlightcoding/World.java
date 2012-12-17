@@ -22,6 +22,7 @@ import com.spotlightcoding.components.Floor;
 import com.spotlightcoding.components.MoveJumping;
 import com.spotlightcoding.components.Hole;
 import com.spotlightcoding.components.SolidObject;
+import com.spotlightcoding.components.TriggerAnimation;
 
 public class World extends BasicGameState{
 
@@ -167,8 +168,9 @@ public class World extends BasicGameState{
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
 				block.addComponent(new ImageRenderComponent(vault));
+				//block.addComponent(new TriggerAnimation(rob, coinSpin, 7, 50));
 			}else if (block.getType() == "robot") {				
-				block.addComponent(new ImageRenderComponent(botImg));				
+				block.addComponent(new ImageRenderComponent(botImg));
 				block.addComponent(new LaserFire(rob,laserShot));
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
