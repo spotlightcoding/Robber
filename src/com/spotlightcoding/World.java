@@ -54,10 +54,6 @@ public class World extends BasicGameState{
 		laserShotImg = new Image("res/laser.png");
 		botImg = new Image("res/bot.png");
 		vault = new Image("res/vault-door.png");
-
-		level = new Entity("level", "environment");
-		level.addComponent(new ImageRenderComponent(worldMap));
-		level.addComponent(new LeftRightMovement(rob));
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
@@ -65,31 +61,33 @@ public class World extends BasicGameState{
 		rob.addComponent(new MoveJumping());
 		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
+		level = new Entity("level", "environment");
+		level.addComponent(new ImageRenderComponent(worldMap));
+		level.addComponent(new LeftRightMovement(rob));
+		
+		bot = new Entity("bot", "robot");
+		
 		laserShot = new Entity("laserShot", "environment");
 		laserShot.addComponent(new ImageRenderComponent(laserShotImg));
 		laserShot.addComponent(new LeftRightMovement(rob));
 		
-		bot = new Entity("bot", "environment");
-		bot.addComponent(new ImageRenderComponent(botImg));
-		bot.addComponent(new LeftRightMovement(rob));
-		bot.addComponent(new LaserFire(rob,laserShot));
-		bot.addComponent(new SolidObject(rob));
-		bot.addComponent(new Floor(rob));
-		bot.setPosition(new Vector2f(600,(int)(GROUND_LEVEL - bot.getSize().getHeight()) +7));
-		
-		laserShot.setPosition(new Vector2f(600,(int)(GROUND_LEVEL - bot.getSize().getHeight()) +40));
-		
-		blocks = this.getLevelBlocks();
+		blocks = this.getLevelBlocks(0);
+
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
+		level.render(gc,null,gr);
+		rob.render(gc,null,gr);
+		
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
-		} 
+		}
+		
 		if(bot.isBotActive()){
 			laserShot.render(gc,null,gr);
 		}
+		
 		level.render(gc,null,gr);
 		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
@@ -98,6 +96,11 @@ public class World extends BasicGameState{
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
+		
+		rob.update(gc, sb, delta);
+		level.update(gc, sb, delta);		
+		laserShot.update(gc,sb,delta);
+		
 		for (Entity block : blocks) {
 			block.update(gc, sb, delta);
 		}
@@ -106,10 +109,29 @@ public class World extends BasicGameState{
 		rob.update(gc, sb, delta);
 		bot.update(gc, sb, delta);
 		laserShot.update(gc,sb,delta);
+	
+		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
+			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
+			
+			blocks.clear();
+			bot = new Entity("bot", "robot");
+			blocks = getLevelBlocks(correctBlockPos);
+			
+			rob.setBarrier(Entity.BARRIER_NONE);
+		}
 		
+		if (rob.getBarrier() == Entity.BARRIER_LEFT) {
+			float correctBlockPos = blocks.get(0).getPosition().getX() - (0.4f * delta);
+			
+			blocks.clear();
+			bot = new Entity("bot", "robot");
+			blocks = getLevelBlocks(correctBlockPos);
+			
+			rob.setBarrier(Entity.BARRIER_NONE);
+		}
 	}
 	
-	private ArrayList<Entity> getLevelBlocks() {
+	private ArrayList<Entity> getLevelBlocks(float start) {
 		ArrayList <Entity>arrBlocks = new ArrayList<Entity>();
 		
 		arrBlocks.add(new Entity("floor1", "floor"));
@@ -129,7 +151,7 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor12", "floor"));
 		arrBlocks.add(new Entity("floor13", "floor"));
 		arrBlocks.add(new Entity("floor14", "floor"));
-		//arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
+		arrBlocks.add(bot);
 		arrBlocks.add(new Entity("floor15", "floor"));
 		arrBlocks.add(new Entity("floor16", "floor"));
 		arrBlocks.add(new Entity("floor17", "floor"));
@@ -141,7 +163,7 @@ public class World extends BasicGameState{
 			
 			if (block.getType() == "floor") {
 				block.addComponent(new Floor(rob));
-				block.addComponent(new ImageRenderComponent(floorImg));				
+				block.addComponent(new ImageRenderComponent(floorImg));
 			}else if (block.getType() == "hole") {
 				block.addComponent(new Hole(rob));
 				block.addComponent(new ImageRenderComponent(hole));
@@ -149,10 +171,17 @@ public class World extends BasicGameState{
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
 				block.addComponent(new ImageRenderComponent(vault));
+			}else if (block.getType() == "robot") {				
+				block.addComponent(new ImageRenderComponent(botImg));				
+				block.addComponent(new LaserFire(rob,laserShot));
+				block.addComponent(new SolidObject(rob));
+				block.addComponent(new Floor(rob));
+				
+				// laserShot.setPosition(new Vector2f((int)(count*block.getSize().getWidth()) + start,(int)(GROUND_LEVEL - (block.getSize().getHeight()) + 40)));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
-			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), (int)(GROUND_LEVEL - (block.getSize().getHeight() - 32))));
+			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()) + start, (int)(GROUND_LEVEL - (block.getSize().getHeight() - 32))));
 			
 			count++;
 		}

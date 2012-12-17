@@ -29,16 +29,25 @@ public class LeftRightMovement extends Component {
 			Input input = gc.getInput();
 			Vector2f position = owner.getPosition();
 			
-			if ((rob.getBarrier() != Entity.BARRIER_LEFT) && ((input.isKeyDown(Input.KEY_A)) || (input.isKeyDown(Input.KEY_LEFT)))){
-				position.x += 0.4f * delta;
-				if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
-					rob.setBarrier(Entity.BARRIER_NONE);
+			if ((rob.getBarrier() != Entity.BARRIER_LEFT) && ((input.isKeyDown(Input.KEY_A)) || (input.isKeyDown(Input.KEY_LEFT)))){	
+				// Check to see if any right key is pressed down before moving
+				if ((!input.isKeyDown(Input.KEY_D)) && (!input.isKeyDown(Input.KEY_RIGHT))) {
+					position.x += 0.4f * delta;
+					
+					if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
+						rob.setBarrier(Entity.BARRIER_NONE);
+					}
 				}
 			}
+			
 			if ((rob.getBarrier() != Entity.BARRIER_RIGHT) && ((input.isKeyDown(Input.KEY_D)) || (input.isKeyDown(Input.KEY_RIGHT)))){
-				position.x -= 0.4f * delta;
-				if (rob.getBarrier() == Entity.BARRIER_LEFT) {
-					rob.setBarrier(Entity.BARRIER_NONE);
+				
+				if ((!input.isKeyDown(Input.KEY_A)) && (!input.isKeyDown(Input.KEY_LEFT))) {
+					position.x -= 0.4f * delta;
+					
+					if (rob.getBarrier() == Entity.BARRIER_LEFT) {
+						rob.setBarrier(Entity.BARRIER_NONE);
+					}
 				}
 			}
 		}	

@@ -29,6 +29,6 @@ public class SolidObject extends Component {
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
 		
-		// System.out.println(rob.getPosition().getY() + " " + rob.getPosition().getX());
+		// System.out.println(owner.getPosition().getX() + " " + owner.getPosition().getY());
 	}
 }

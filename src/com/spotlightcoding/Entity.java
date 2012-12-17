@@ -35,7 +35,7 @@ public class Entity {
     private int state;
     private String type;
     
-    //robot propertys
+    // Robot properties
     private boolean activated;
     private String direction;
     
