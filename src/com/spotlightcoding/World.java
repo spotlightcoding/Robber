@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import com.spotlightcoding.components.Gravity;
 import com.spotlightcoding.components.ImageRenderComponent;
+import com.spotlightcoding.components.LaserFire;
 import com.spotlightcoding.components.LeftRightMovement;
 import com.spotlightcoding.components.Floor;
 import com.spotlightcoding.components.MoveJumping;
@@ -21,13 +22,10 @@ import com.spotlightcoding.components.Hole;
 import com.spotlightcoding.components.SolidObject;
 
 public class World extends BasicGameState{
-	Image worldMap;
-	Image robImg;
-	Image floorImg;
-	Image hole;
-	Image vault;
-	Entity level;
-	Entity rob;
+
+	Image worldMap, robImg,floorImg,hole,laserShotImg, botImg,vault;
+	Entity level,rob,laserShot,bot;
+
 	
 	ArrayList <Entity>blocks;
 	
@@ -45,11 +43,13 @@ public class World extends BasicGameState{
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
 		hole = new Image("res/hole.png");
+		laserShotImg = new Image("res/laser.png");
+		botImg = new Image("res/bot.png");
 		vault = new Image("res/vault-door.png");
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
-		rob.addComponent(new Gravity(rob));
+		rob.addComponent(new Gravity());
 		rob.addComponent(new MoveJumping());
 		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
@@ -57,42 +57,59 @@ public class World extends BasicGameState{
 		level.addComponent(new ImageRenderComponent(worldMap));
 		level.addComponent(new LeftRightMovement(rob));
 		
+		bot = new Entity("bot", "robot");
+		
+		laserShot = new Entity("laserShot", "environment");
+		laserShot.addComponent(new ImageRenderComponent(laserShotImg));
+		laserShot.addComponent(new LeftRightMovement(rob));
+		
 		blocks = this.getLevelBlocks(0);
+
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
 		level.render(gc,null,gr);
+		rob.render(gc,null,gr);
 		
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
 		}
 		
-		rob.render(gc,null,gr);
+		if(bot.isBotActive()){
+			laserShot.render(gc,null,gr);
+		}
+		
+				
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
 		
 		rob.update(gc, sb, delta);
-		level.update(gc, sb, delta);
+		level.update(gc, sb, delta);		
+		laserShot.update(gc,sb,delta);
 		
 		for (Entity block : blocks) {
 			block.update(gc, sb, delta);
 		}
 		
 		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
-			float correctPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
+			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
+			
 			blocks.clear();
-			blocks = getLevelBlocks(correctPos);
+			bot = new Entity("bot", "robot");
+			blocks = getLevelBlocks(correctBlockPos);
 			
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
 		
 		if (rob.getBarrier() == Entity.BARRIER_LEFT) {
-			float correctPos = blocks.get(0).getPosition().getX() - (0.4f * delta);
+			float correctBlockPos = blocks.get(0).getPosition().getX() - (0.4f * delta);
+			
 			blocks.clear();
-			blocks = getLevelBlocks(correctPos);
+			bot = new Entity("bot", "robot");
+			blocks = getLevelBlocks(correctBlockPos);
 			
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
@@ -118,7 +135,7 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor12", "floor"));
 		arrBlocks.add(new Entity("floor13", "floor"));
 		arrBlocks.add(new Entity("floor14", "floor"));
-		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
+		arrBlocks.add(bot);
 		arrBlocks.add(new Entity("floor15", "floor"));
 		arrBlocks.add(new Entity("floor16", "floor"));
 		arrBlocks.add(new Entity("floor17", "floor"));
@@ -138,6 +155,13 @@ public class World extends BasicGameState{
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
 				block.addComponent(new ImageRenderComponent(vault));
+			}else if (block.getType() == "robot") {				
+				block.addComponent(new ImageRenderComponent(botImg));				
+				block.addComponent(new LaserFire(rob,laserShot));
+				block.addComponent(new SolidObject(rob));
+				block.addComponent(new Floor(rob));
+				
+				// laserShot.setPosition(new Vector2f((int)(count*block.getSize().getWidth()) + start,(int)(GROUND_LEVEL - (block.getSize().getHeight()) + 40)));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
