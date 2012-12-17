@@ -78,7 +78,7 @@ public class World extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
 		level.render(gc,null,gr);
-		rob.render(gc,null,gr);
+		
 		
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
@@ -88,7 +88,6 @@ public class World extends BasicGameState{
 			laserShot.render(gc,null,gr);
 		}
 		
-		level.render(gc,null,gr);
 		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
 		aniCoinSpin.draw(300,300);
