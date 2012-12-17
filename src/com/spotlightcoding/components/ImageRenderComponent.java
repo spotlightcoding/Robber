@@ -28,8 +28,10 @@ public class ImageRenderComponent extends Component {
 		float scale = owner.getScale();
 		
 		if (animate) {
-			animation.draw(owner.getPosition().getX(), owner.getPosition().getY());
-			System.out.println("drawing animation");
+			if (animation != null) {
+				animation.draw(owner.getPosition().getX(), owner.getPosition().getY());
+			}
+			
 		} else {
 			image.draw(pos.x, pos.y, scale);
 		}

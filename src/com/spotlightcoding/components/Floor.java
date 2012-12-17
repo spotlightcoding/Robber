@@ -29,7 +29,7 @@ public class Floor extends Component {
 			rob.setState(Entity.NORMAL);
 		} else if ((rob.getState() != Entity.JUMPING) && ((robPos.getX()) >= (pos.getX()) && (robPos.getX() <= pos.getX() + owner.getSize().getWidth())) && ((robPos.getY() + rob.getSize().getHeight()) + 5 <= (pos.getY()))) {
 			rob.setState(Entity.FALLING);
-		}		
+		}
 		
 	}
 }

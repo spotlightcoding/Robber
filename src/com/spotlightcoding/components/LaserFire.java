@@ -16,8 +16,8 @@ public class LaserFire extends Component{
 	private final float RIGHT = 0.5f;
 	public final int TOP_HOLE = 48;
 	public final int BOTTOM_HOLE = 67;
-	private final int BOTROB_DISTANCE = 200;
-	private final int BOTLAS_DISTANCE = 400;
+	private final int BOTROB_DISTANCE = 1000;
+	private final int BOTLAS_DISTANCE = 1000;
 	
 	//------------------------------------------------PROPERTIES
 	private float robBotDistance;
