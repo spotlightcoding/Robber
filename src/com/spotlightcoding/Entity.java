@@ -2,6 +2,7 @@ package com.spotlightcoding;
  
 import java.util.ArrayList;
 
+
 import java.awt.Dimension;
  
 import org.newdawn.slick.GameContainer;
@@ -12,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.Animation;
 
 import com.spotlightcoding.components.ImageRenderComponent;
+import com.spotlightcoding.components.AnimationRenderComponent;
 import com.spotlightcoding.Component;
 
 public class Entity {
@@ -44,6 +46,7 @@ public class Entity {
     private String barrier;
  
     ImageRenderComponent renderComponent;
+    AnimationRenderComponent animationRenderComponent;
  
     ArrayList<Component> components;
     
@@ -68,6 +71,11 @@ public class Entity {
         if(ImageRenderComponent.class.isInstance(component)){
         	renderComponent = (ImageRenderComponent)component;
         	size.setSize(renderComponent.getImage().getWidth(), renderComponent.getImage().getHeight());
+        }
+        
+        if(AnimationRenderComponent.class.isInstance(component)){
+        	animationRenderComponent = (AnimationRenderComponent)component;
+        	//size.setSize(renderComponent.getImage().getWidth(), renderComponent.getImage().getHeight());
         }
             
         component.setOwnerEntity(this);
@@ -190,6 +198,10 @@ public class Entity {
     {
         if(renderComponent != null) {
         	renderComponent.render(gc, sb, gr);
+        }
+        
+        if(animationRenderComponent != null) {
+        	animationRenderComponent.render(gc, sb, gr);
         }
     }
 }

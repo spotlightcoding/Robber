@@ -22,6 +22,7 @@ import com.spotlightcoding.components.MoveJumping;
 import com.spotlightcoding.components.Hole;
 import com.spotlightcoding.components.SolidObject;
 import com.spotlightcoding.components.TriggerAnimation;
+import com.spotlightcoding.components.AnimationRenderComponent;
 
 public class World extends BasicGameState{
 
@@ -101,13 +102,22 @@ public class World extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
 		
 		rob.update(gc, sb, delta);
-		level.update(gc, sb, delta);		
+		level.update(gc, sb, delta);
 		laserShot.update(gc,sb,delta);
 		
 		for (Entity block : blocks) {
 			block.update(gc, sb, delta);
+			
+			// Win detection
+			if ((block.getType() == "winner") && 
+					(((rob.getPosition().getX() + rob.getSize().getWidth()) >= block.getPosition().getX()) && 
+					(rob.getPosition().getX() <= (block.getPosition().getX() + block.getSize().getWidth()))) &&
+					(((rob.getPosition().getY() + rob.getSize().getHeight()) >= (block.getPosition().getY() - 10)))) {
+				gc.reinit();
+			}
 		}
 		
+		// Gap correction
 		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
 			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
 			
@@ -227,7 +237,6 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("vaultDoor3", "vaultDoor"));
 		arrBlocks.add(new Entity("floor32", "floor"));
-		arrBlocks.add(new Entity("floor33", "floor"));
 		arrBlocks.add(new Entity("floor33", "winner"));
 		
 		int count = 0;
@@ -255,6 +264,7 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "winner") {
 				block.addComponent(new Floor(rob));
 				block.addComponent(new AnimationRenderComponent(aniCoinSpin));
+				block.addComponent(new ImageRenderComponent(floorImg));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
