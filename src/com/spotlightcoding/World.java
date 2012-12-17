@@ -105,10 +105,6 @@ public class World extends BasicGameState{
 			block.update(gc, sb, delta);
 		}
 		
-		level.update(gc, sb, delta);
-		rob.update(gc, sb, delta);
-		bot.update(gc, sb, delta);
-		laserShot.update(gc,sb,delta);
 	
 		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
 			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
@@ -129,7 +125,12 @@ public class World extends BasicGameState{
 			
 			rob.setBarrier(Entity.BARRIER_NONE);
 		}
+		level.update(gc, sb, delta);
+		rob.update(gc, sb, delta);
+		bot.update(gc, sb, delta);
+		laserShot.update(gc,sb,delta);
 	}
+	
 	
 	private ArrayList<Entity> getLevelBlocks(float start) {
 		ArrayList <Entity>arrBlocks = new ArrayList<Entity>();
