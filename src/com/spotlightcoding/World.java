@@ -68,22 +68,19 @@ public class World extends BasicGameState{
 		
 		bot = new Entity("bot", "robot");
 		
-		
 		laserShot = new Entity("laserShot", "environment");
 		laserShot.addComponent(new ImageRenderComponent(laserShotImg));
 		laserShot.addComponent(new LeftRightMovement(rob));
-		
-		
-		
-		blocks = this.getLevelBlocks(0);
 
+		blocks = this.getLevelBlocks(0);
+		
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
 		level.render(gc,null,gr);
-		
-		
+
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
 		}
@@ -97,10 +94,7 @@ public class World extends BasicGameState{
 
 		if(rob.getState() == Entity.DEAD){
 			gc.reinit();
-		}
-		
-		// aniCoinSpin.draw(300,300);
-
+		}	
 	}
 
 	@Override
@@ -231,9 +225,10 @@ public class World extends BasicGameState{
 		arrBlocks.add(new Entity("floor31", "floor"));
 		arrBlocks.add(new Entity("floor30", "floor"));
 		arrBlocks.add(new Entity("floor31", "floor"));
-		arrBlocks.add(new Entity("vaultDoor1", "vaultDoor"));
+		arrBlocks.add(new Entity("vaultDoor3", "vaultDoor"));
 		arrBlocks.add(new Entity("floor32", "floor"));
 		arrBlocks.add(new Entity("floor33", "floor"));
+		arrBlocks.add(new Entity("floor33", "winner"));
 		
 		int count = 0;
 		for (Entity block : arrBlocks) {
@@ -257,6 +252,9 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "spikes") {
 				block.addComponent(new ImageRenderComponent(spikes));
 				block.addComponent(new DeadOnContact(rob));
+			}else if (block.getType() == "winner") {
+				block.addComponent(new Floor(rob));
+				block.addComponent(new AnimationRenderComponent(aniCoinSpin));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
@@ -264,6 +262,7 @@ public class World extends BasicGameState{
 			
 			count++;
 		}
+		
 		
 		return arrBlocks;
 	}
