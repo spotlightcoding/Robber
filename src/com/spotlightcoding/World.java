@@ -46,10 +46,6 @@ public class World extends BasicGameState{
 		floorImg = new Image("res/floor.png");
 		hole = new Image("res/hole.png");
 		vault = new Image("res/vault-door.png");
-
-		level = new Entity("level", "environment");
-		level.addComponent(new ImageRenderComponent(worldMap));
-		level.addComponent(new LeftRightMovement(rob));
 		
 		rob = new Entity("Rob", "character");
 		rob.addComponent(new ImageRenderComponent(robImg));
@@ -57,30 +53,52 @@ public class World extends BasicGameState{
 		rob.addComponent(new MoveJumping());
 		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
-		blocks = this.getLevelBlocks();
+		level = new Entity("level", "environment");
+		level.addComponent(new ImageRenderComponent(worldMap));
+		level.addComponent(new LeftRightMovement(rob));
+		
+		blocks = this.getLevelBlocks(0);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics gr) throws SlickException {
+		level.render(gc,null,gr);
+		
 		for (Entity block : blocks) {
 			block.render(gc, null, gr);
 		}
 		
-		level.render(gc,null,gr);
 		rob.render(gc,null,gr);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta) throws SlickException {
+		
+		rob.update(gc, sb, delta);
+		level.update(gc, sb, delta);
+		
 		for (Entity block : blocks) {
 			block.update(gc, sb, delta);
 		}
 		
-		level.update(gc, sb, delta);
-		rob.update(gc, sb, delta);
+		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
+			float correctPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
+			blocks.clear();
+			blocks = getLevelBlocks(correctPos);
+			
+			rob.setBarrier(Entity.BARRIER_NONE);
+		}
+		
+		if (rob.getBarrier() == Entity.BARRIER_LEFT) {
+			float correctPos = blocks.get(0).getPosition().getX() - (0.4f * delta);
+			blocks.clear();
+			blocks = getLevelBlocks(correctPos);
+			
+			rob.setBarrier(Entity.BARRIER_NONE);
+		}
 	}
 	
-	private ArrayList<Entity> getLevelBlocks() {
+	private ArrayList<Entity> getLevelBlocks(float start) {
 		ArrayList <Entity>arrBlocks = new ArrayList<Entity>();
 		
 		arrBlocks.add(new Entity("floor1", "floor"));
@@ -112,7 +130,7 @@ public class World extends BasicGameState{
 			
 			if (block.getType() == "floor") {
 				block.addComponent(new Floor(rob));
-				block.addComponent(new ImageRenderComponent(floorImg));				
+				block.addComponent(new ImageRenderComponent(floorImg));
 			}else if (block.getType() == "hole") {
 				block.addComponent(new Hole(rob));
 				block.addComponent(new ImageRenderComponent(hole));
@@ -123,7 +141,7 @@ public class World extends BasicGameState{
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
-			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()), (int)(GROUND_LEVEL - (block.getSize().getHeight() - 32))));
+			block.setPosition(new Vector2f((int)(count*block.getSize().getWidth()) + start, (int)(GROUND_LEVEL - (block.getSize().getHeight() - 32))));
 			
 			count++;
 		}
