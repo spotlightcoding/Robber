@@ -14,8 +14,8 @@ public class LaserFire extends Component{
 	//------------------------------------------------CONSTANTS
 	private final float LEFT = -0.5f;
 	private final float RIGHT = 0.5f;
-	public final int TOP_HOLE = 40;
-	public final int BOTTOM_HOLE = 65;
+	public final int TOP_HOLE = 48;
+	public final int BOTTOM_HOLE = 67;
 	private final int BOTROB_DISTANCE = 200;
 	private final int BOTLAS_DISTANCE = 400;
 	
@@ -87,15 +87,8 @@ public class LaserFire extends Component{
 				if((Math.round(laser.getPosition().y) >= Math.round((rob.getPosition().y))) && 
 						(Math.round(laser.getPosition().y) <= Math.round((rob.getPosition().y + rob.getSize().height)))){
 					rob.setState(Entity.DEAD);
-					
 				}
-				
 			}
-			
-			
-			
-			
-			
 		}
 	}
 
