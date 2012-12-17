@@ -50,14 +50,14 @@ public class LaserFire extends Component{
 				direction = "Right";
 			}
 			
-			if(robBotDistance < 200){
-				if(laserBotDistance > 400){
+			if(robBotDistance < BOTROB_DISTANCE){
+				if(laserBotDistance > BOTLAS_DISTANCE){
 					owner.setBotActive(false);
 				}else{
 					owner.setBotActive(true);
 				}
 			}else{
-				if(laserBotDistance > 400){
+				if(laserBotDistance > BOTLAS_DISTANCE){
 					owner.setBotActive(false);
 				}
 			}
@@ -67,6 +67,7 @@ public class LaserFire extends Component{
 					laser.setPosition(new Vector2f(laserPosition.x += LEFT * delta,laserPosition.y));
 				}else{
 					owner.setBotActive(false);
+					// TODO ----
 					//laser.setPosition(new Vector2f(laserPosition.x += RIGHT * delta,laserPosition.y));
 				}
 			}else{
@@ -83,14 +84,15 @@ public class LaserFire extends Component{
 			
 			if((Math.round(laser.getPosition().x) >= Math.round((rob.getPosition().x))) && 
 					(Math.round(laser.getPosition().x) <= Math.round((rob.getPosition().x + rob.getSize().width)))){
-				//have to check for y
+				if((Math.round(laser.getPosition().y) >= Math.round((rob.getPosition().y))) && 
+						(Math.round(laser.getPosition().y) <= Math.round((rob.getPosition().y + rob.getSize().height)))){
+					rob.setState(Entity.DEAD);
+					
+				}
 				
-				System.out.println(Math.round(laser.getPosition().x));
 			}
 			
-			if(Math.round(laser.getPosition().x) == 440){
-				
-			}
+			
 			
 			
 			

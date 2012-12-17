@@ -2,10 +2,12 @@ package com.spotlightcoding;
 
 
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -23,8 +25,10 @@ import com.spotlightcoding.components.SolidObject;
 
 public class World extends BasicGameState{
 
-	Image worldMap, robImg,floorImg,hole,laserShotImg, botImg,vault;
+	Image worldMap, robImg,floorImg,hole,laserShotImg, botImg,vault,coinSpinImg;
 	Entity level,rob,laserShot,bot;
+	Animation aniCoinSpin;
+	SpriteSheet coinSpin;
 
 	
 	ArrayList <Entity>blocks;
@@ -38,7 +42,11 @@ public class World extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-
+		
+		coinSpinImg = new Image("res/coinSpin.png");
+		coinSpin = new SpriteSheet(coinSpinImg,32,32);
+		aniCoinSpin = new Animation(coinSpin,0,0,7,0,true,50,true);
+		
 		worldMap = new Image("res/mapBlank.png");		
 		robImg = new Image("res/robber.png");
 		floorImg = new Image("res/floor.png");
@@ -85,6 +93,7 @@ public class World extends BasicGameState{
 		level.render(gc,null,gr);
 		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
+		aniCoinSpin.draw(300,300);
 	}
 
 	@Override
@@ -97,6 +106,7 @@ public class World extends BasicGameState{
 		rob.update(gc, sb, delta);
 		bot.update(gc, sb, delta);
 		laserShot.update(gc,sb,delta);
+		
 	}
 	
 	private ArrayList<Entity> getLevelBlocks() {
