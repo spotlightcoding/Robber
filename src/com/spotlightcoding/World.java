@@ -90,11 +90,14 @@ public class World extends BasicGameState{
 		if(bot.isBotActive()){
 			laserShot.render(gc,null,gr);
 		}
-		System.out.println(rob.getState());
+		
 		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
 		aniCoinSpin.draw(300,300);
 		
+		if(rob.getState() == Entity.DEAD){
+			gc.reinit();
+		}
 	}
 
 	@Override
@@ -169,7 +172,6 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "vaultDoor") {
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
-				block.addComponent(new DeadOnContact(rob));
 				block.addComponent(new ImageRenderComponent(vault));
 				//block.addComponent(new TriggerAnimation(rob, coinSpin, 7, 50));
 			}else if (block.getType() == "robot") {				

@@ -7,7 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Rob extends StateBasedGame{
-
+	public static final int  MENU = 0;
+	public static final int WORLD = 1;
+	
 	public Rob(String name){
 		super(name);
 		this.addState(new World(0));
