@@ -160,8 +160,6 @@ public class World extends BasicGameState{
 				block.addComponent(new LaserFire(rob,laserShot));
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
-				
-				// laserShot.setPosition(new Vector2f((int)(count*block.getSize().getWidth()) + start,(int)(GROUND_LEVEL - (block.getSize().getHeight()) + 40)));
 			}
 			
 			block.addComponent(new LeftRightMovement(rob));
