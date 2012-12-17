@@ -1,7 +1,5 @@
 package com.spotlightcoding;
 
-
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
 
+import com.spotlightcoding.components.DeadOnContact;
 import com.spotlightcoding.components.Gravity;
 import com.spotlightcoding.components.ImageRenderComponent;
 import com.spotlightcoding.components.LaserFire;
@@ -59,7 +58,7 @@ public class World extends BasicGameState{
 		rob.addComponent(new ImageRenderComponent(robImg));
 		rob.addComponent(new Gravity());
 		rob.addComponent(new MoveJumping());
-		rob.setPosition(new Vector2f(400,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
+		rob.setPosition(new Vector2f(100,(int)(GROUND_LEVEL - rob.getSize().getHeight()) +5));
 		
 		level = new Entity("level", "environment");
 		level.addComponent(new ImageRenderComponent(worldMap));
@@ -67,9 +66,12 @@ public class World extends BasicGameState{
 		
 		bot = new Entity("bot", "robot");
 		
+		
 		laserShot = new Entity("laserShot", "environment");
 		laserShot.addComponent(new ImageRenderComponent(laserShotImg));
 		laserShot.addComponent(new LeftRightMovement(rob));
+		
+		
 		
 		blocks = this.getLevelBlocks(0);
 
@@ -88,10 +90,9 @@ public class World extends BasicGameState{
 			laserShot.render(gc,null,gr);
 		}
 		
-		level.render(gc,null,gr);
-		rob.render(gc,null,gr);
 		bot.render(gc,null,gr);
 		aniCoinSpin.draw(300,300);
+		
 	}
 
 	@Override
@@ -105,7 +106,6 @@ public class World extends BasicGameState{
 			block.update(gc, sb, delta);
 		}
 		
-	
 		if (rob.getBarrier() == Entity.BARRIER_RIGHT) {
 			float correctBlockPos = blocks.get(0).getPosition().getX() + (0.4f * delta);
 			
@@ -167,6 +167,7 @@ public class World extends BasicGameState{
 			}else if (block.getType() == "vaultDoor") {
 				block.addComponent(new SolidObject(rob));
 				block.addComponent(new Floor(rob));
+				block.addComponent(new DeadOnContact(rob));
 				block.addComponent(new ImageRenderComponent(vault));
 			}else if (block.getType() == "robot") {				
 				block.addComponent(new ImageRenderComponent(botImg));				

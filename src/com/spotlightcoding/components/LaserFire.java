@@ -40,7 +40,6 @@ public class LaserFire extends Component{
 			Vector2f robPosition = rob.getPosition();
 			Vector2f laserPosition = laser.getPosition();
 			Vector2f position = owner.getPosition();
-			
 			robBotDistance = position.x - robPosition.x;
 			laserBotDistance = position.x - laserPosition.x;
 			
